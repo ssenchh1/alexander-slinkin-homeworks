@@ -7,9 +7,19 @@ namespace DI.App.Services
 {
     public class UserStore : IUserStore
     {
-        private readonly IDatabaseService dbService = new InMemoryDatabaseService();
+        //Следует исправить композицию на агрегацию
+        private readonly IDatabaseService dbService;// = new InMemoryDatabaseService();
 
-        public IEnumerable<IUser> Users => this.dbService.Read<IUser>();
+        public UserStore(IDatabaseService service)
+        {
+            dbService = service;
+        }
+
+        public IEnumerable<IUser> Users
+        {
+            get => dbService.Read<IUser>();
+        }
+
 
         public void AddUser(IUser user)
         {

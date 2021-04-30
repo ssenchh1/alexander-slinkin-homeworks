@@ -1,9 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\zaruba\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\zaruba\\.nuget\\packages",
-      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      "C:\\Users\\ssenchh\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ssenchh\\.nuget\\packages"
     ]
   }
 }

@@ -11,8 +11,11 @@ namespace DI.App.Services.PL
 
         public CommandProcessor()
         {
-            var addUsers = new AddUserCommand();
-            var listUsers = new ListUsersCommand();
+            //создаем хранилище, с которым будут работать команды.
+            var store = new UserStore(new InMemoryDatabaseService());
+
+            var addUsers = new AddUserCommand(store);
+            var listUsers = new ListUsersCommand(store);
 
             this.commands.Add(addUsers.Number, addUsers);
             this.commands.Add(listUsers.Number, listUsers);
