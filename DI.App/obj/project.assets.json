@@ -664,28 +664,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AlexanderTsvirkun\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\ssenchh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NIX\\School\\src\\DI\\DI.App\\DI.App.csproj",
+      "projectUniqueName": "C:\\Users\\ssenchh\\Desktop\\DI.App\\DI.App\\DI.App.csproj",
       "projectName": "DI.App",
-      "projectPath": "D:\\NIX\\School\\src\\DI\\DI.App\\DI.App.csproj",
-      "packagesPath": "C:\\Users\\AlexanderTsvirkun\\.nuget\\packages\\",
-      "outputPath": "D:\\NIX\\School\\src\\DI\\DI.App\\obj\\",
+      "projectPath": "C:\\Users\\ssenchh\\Desktop\\DI.App\\DI.App\\DI.App.csproj",
+      "packagesPath": "C:\\Users\\ssenchh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ssenchh\\Desktop\\DI.App\\DI.App\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\AlexanderTsvirkun\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\ssenchh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"

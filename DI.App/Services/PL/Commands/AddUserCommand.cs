@@ -7,7 +7,13 @@ namespace DI.App.Services.PL.Commands
 {
     public class AddUserCommand : ICommand
     {
-        private readonly IUserStore userStore = new UserStore();
+        //Теперь в конструктор добавляется хранилище, с которым будет работать данная команда
+        private readonly IUserStore userStore /*= new UserStore(new InMemoryDatabaseService())*/;
+
+        public AddUserCommand(IUserStore strorage)
+        {
+            userStore = strorage;
+        }
 
         public int Number { get; } = 1;
         public string DisplayName { get; } = "Add user";

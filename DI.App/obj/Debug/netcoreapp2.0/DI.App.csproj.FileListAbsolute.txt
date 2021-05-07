@@ -9,3 +9,15 @@ C:\Users\zaruba\Documents\Visual Studio 2017\Projects\School\src\DI\DI.App\bin\D
 C:\Users\zaruba\Documents\Visual Studio 2017\Projects\School\src\DI\DI.App\bin\Debug\netcoreapp2.0\DI.App.pdb
 C:\Users\zaruba\Documents\Visual Studio 2017\Projects\School\src\DI\DI.App\obj\Debug\netcoreapp2.0\DI.App.dll
 C:\Users\zaruba\Documents\Visual Studio 2017\Projects\School\src\DI\DI.App\obj\Debug\netcoreapp2.0\DI.App.pdb
+C:\Users\ssenchh\Desktop\DI.App\DI.App\obj\Debug\netcoreapp2.0\DI.App.csprojAssemblyReference.cache
+C:\Users\ssenchh\Desktop\DI.App\DI.App\obj\Debug\netcoreapp2.0\DI.App.AssemblyInfoInputs.cache
+C:\Users\ssenchh\Desktop\DI.App\DI.App\obj\Debug\netcoreapp2.0\DI.App.AssemblyInfo.cs
+C:\Users\ssenchh\Desktop\DI.App\DI.App\obj\Debug\netcoreapp2.0\DI.App.csproj.CoreCompileInputs.cache
+C:\Users\ssenchh\Desktop\DI.App\DI.App\obj\Debug\netcoreapp2.0\DI.App.dll
+C:\Users\ssenchh\Desktop\DI.App\DI.App\obj\Debug\netcoreapp2.0\DI.App.pdb
+C:\Users\ssenchh\Desktop\DI.App\DI.App\bin\Debug\netcoreapp2.0\DI.App.deps.json
+C:\Users\ssenchh\Desktop\DI.App\DI.App\bin\Debug\netcoreapp2.0\DI.App.runtimeconfig.json
+C:\Users\ssenchh\Desktop\DI.App\DI.App\bin\Debug\netcoreapp2.0\DI.App.runtimeconfig.dev.json
+C:\Users\ssenchh\Desktop\DI.App\DI.App\bin\Debug\netcoreapp2.0\DI.App.dll
+C:\Users\ssenchh\Desktop\DI.App\DI.App\bin\Debug\netcoreapp2.0\DI.App.pdb
+C:\Users\ssenchh\Desktop\DI.App\DI.App\obj\Debug\netcoreapp2.0\DI.App.genruntimeconfig.cache

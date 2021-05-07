@@ -6,8 +6,14 @@ namespace DI.App.Services.PL
 {
     public class CommandManager
     {
-        private readonly ICommandProcessor processor = new CommandProcessor();
-        private string info;
+        //избавились от инверсии зависимостей, добавив выбор процессора с помощью конструктора. Также исправили нейминг
+        private readonly ICommandProcessor _processor/*= new CommandProcessor()*/;
+        private string _info;
+        
+        public CommandManager(ICommandProcessor processor)
+        {
+            _processor = processor;
+        }
 
         public void Start()
         {
@@ -16,7 +22,7 @@ namespace DI.App.Services.PL
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(this.info);
+                Console.WriteLine(this._info);
 
                 var input = Console.ReadLine();
 
@@ -27,7 +33,7 @@ namespace DI.App.Services.PL
                     continue;
                 }
 
-                this.processor.Process(command);
+                this._processor.Process(command);
 
                 Console.WriteLine("RETURN to continue...");
                 Console.ReadLine();
@@ -37,7 +43,7 @@ namespace DI.App.Services.PL
         private void SetupInfo()
         {
             var sb = new StringBuilder();
-            var commands = this.processor.Commands;
+            var commands = this._processor.Commands;
 
             sb.AppendLine("Select operation:");
 
@@ -46,7 +52,7 @@ namespace DI.App.Services.PL
                 sb.AppendLine($"{command.Number}. {command.DisplayName}");
             }
 
-            this.info = sb.ToString();
+            this._info = sb.ToString();
         }
     }
 }
