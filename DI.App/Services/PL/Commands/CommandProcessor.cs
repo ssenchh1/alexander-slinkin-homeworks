@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DI.App.Abstractions;
+using DI.App.Abstractions.BLL;
 using DI.App.Services.PL.Commands;
 
 namespace DI.App.Services.PL
@@ -8,24 +9,24 @@ namespace DI.App.Services.PL
     public class CommandProcessor : ICommandProcessor
     {
         private readonly Dictionary<int, ICommand> commands = new Dictionary<int, ICommand>();
+        private IUserStore store;
 
-        public CommandProcessor()
+        public CommandProcessor(IUserStore userStore)
         {
-            //создаем хранилище, с которым будут работать команды.
-            var store = new UserStore(new InMemoryDatabaseService());
+            //инициализируем хранилище, с которым будут работать команды.
+            store = userStore;
+        }
 
-            var addUsers = new AddUserCommand(store);
-            var listUsers = new ListUsersCommand(store);
-
-            this.commands.Add(addUsers.Number, addUsers);
-            this.commands.Add(listUsers.Number, listUsers);
+        public void AddCommand(ICommand command)
+        {
+            commands.TryAdd(command.Number, command);
         }
 
         public void Process(int number)
         {
-            if (!this.commands.TryGetValue(number, out var command)) return;
+            if (!this.commands.Distinct().ToDictionary(d=>d.Key).TryGetValue(number, out var command)) return;
 
-            command.Execute();
+            command.Value.Execute();
         }
 
         public IEnumerable<ICommand> Commands => this.commands.Values.AsEnumerable();
