@@ -64,6 +64,12 @@ namespace PracticeNix14may
     {
         static void Main(string[] args)
         {
+            var sorting = new QuickSort<int>();
+
+            var array = new int[] {12, 56, 87, 45, 65, 56};
+
+            var sorted = sorting.Sort(array, 0, array.Length-1);
+
             var sv = new Seven();
 
             var a = sv.D("+380-98-219-72-70");
@@ -120,11 +126,6 @@ namespace PracticeNix14may
             return sum;
         }
 
-        //public static void Seven()
-        //{
-        //    
-        //}
-
         public static string[] Eight(string[] names)
         {
             var filalNames = new List<string>();
@@ -159,6 +160,47 @@ namespace PracticeNix14may
         {
             var data = Convert.FromBase64String(str);
             return Encoding.UTF8.GetString(data);
+        }
+    }
+
+    public class QuickSort<T> where T : IComparable
+    {
+        public void Swap(T[] arr, int i, int j)
+        {
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        
+        public int Partition(T[] arr, int low, int high)
+        {
+            var pivot = arr[high];
+            
+            int i = (low - 1);
+
+            for (int j = low; j <= high - 1; j++)
+            {
+                if (arr[j].CompareTo(pivot) < 0)
+                {
+                    i++;
+                    Swap(arr, i, j);
+                }
+            }
+            Swap(arr, i + 1, high);
+            return (i + 1);
+        }
+
+        public T[] Sort(T[] arr, int low, int high)
+        {
+            if (low < high)
+            {
+                int pi = Partition(arr, low, high);
+                
+                Sort(arr, low, pi - 1);
+                Sort(arr, pi + 1, high);
+            }
+
+            return arr;
         }
     }
 }
