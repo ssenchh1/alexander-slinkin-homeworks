@@ -6,7 +6,6 @@ using System.Threading.Channels;
 
 namespace VClasse
 {
-
     public class Customer
     {
         public long Id { get; set; }
@@ -61,10 +60,6 @@ namespace VClasse
             Console.WriteLine(second);
 
             var res = Third(customers, DateTime.MinValue, DateTime.MaxValue);
-            if (!res.Any())
-            {
-                Console.WriteLine("No results");
-            }
 
             var fourth = customers.OrderBy(c => c.Id);
 
@@ -79,8 +74,18 @@ namespace VClasse
 
         public static IEnumerable<Customer> Third(IEnumerable<Customer> list, DateTime min, DateTime max)
         {
-            return list.Where(c => c.RegistrationDate <= max && c.RegistrationDate >= min)
+            var selected = list.Where(c => c.RegistrationDate <= max && c.RegistrationDate >= min)
                 .OrderBy(c => c.RegistrationDate);
+
+            if (selected.Any())
+            {
+                return selected;
+            }
+            else
+            {
+                Console.WriteLine("No Results");
+                return null;
+            }
         }
 
         public static IEnumerable<Customer> Fifth(IEnumerable<Customer> list, string str)
