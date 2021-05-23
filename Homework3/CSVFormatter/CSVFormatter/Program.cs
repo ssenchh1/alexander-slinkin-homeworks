@@ -19,7 +19,7 @@ namespace CSVFormatter
 
             string pathToFile = @$"C:\Users\{Environment.UserName}\Desktop\persons.csv";
 
-            var formatter = new Formatter(new SvgFormat());
+            var formatter = new Formatter();
             formatter.Run(persons, pathToFile);
         }
     }
