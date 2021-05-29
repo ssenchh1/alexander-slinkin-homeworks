@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Models;
 
-namespace BLL.Abstractions.Interfaces
+namespace Core.BLL.Interfaces
 {
     public interface IUserService
     {

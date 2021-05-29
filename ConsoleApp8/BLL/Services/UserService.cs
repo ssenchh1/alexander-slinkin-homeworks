@@ -1,4 +1,9 @@
-﻿namespace BLL.Services
+﻿using System.Collections.Generic;
+using Core.Models;
+using Core.BLL.Interfaces;
+using Core.DAL.Interfaces;
+
+namespace BLL.Services
 {
     public class UserService : IUserService
     {
@@ -11,7 +16,7 @@
 
         public List<User> LoadRecords()
         {
-            _repository.LoadRecords();
+            return _repository.LoadRecords();
         }
     }
 }

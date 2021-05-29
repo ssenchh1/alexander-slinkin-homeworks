@@ -1,18 +1,20 @@
-﻿namespace Core.Models
+﻿using System.Runtime.Serialization;
+
+namespace Core.Models
 {
     [DataContract]
-    internal class User
+    public class User
     {
-        [DataMember]
-        internal string firstname;
+        [DataMember(EmitDefaultValue = false)]
+        public string firstName;
+
+        [DataMember(EmitDefaultValue = false)]
+        public string lastName;
 
         [DataMember]
-        internal string lastname;
+        public string points;
 
-        [DataMember]
-        internal string points;
-
-        [DataMember]
-        internal int totalpoints;
+        [DataMember(EmitDefaultValue = false)]
+        public int Age;
     }
 }

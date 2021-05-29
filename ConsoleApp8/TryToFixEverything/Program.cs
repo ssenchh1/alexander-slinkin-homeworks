@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using BLL.Services;
+using DAL.Services;
 
 namespace ConsoleApp8
 {
@@ -13,23 +16,17 @@ namespace ConsoleApp8
     // - ошибки в DI контейнере
     // - и т.д.
     // Необходимо исправить все проблемы и ошибки системы и сделать так, чтобы программа заработала
-    
+
     class Program
     {
         static void Main(string[] args)
         {
-            var users = _userService.LoadRecords();
+            var userService = new UserService(new UserRepository());
 
-            for (int i = 0; i < users.Length; i++)
-            {
-                List<User> result = users.FindAll(delegate (User user) {
-                    return user.lastname == users[i].lastname;
-                    });
-                foreach (var item in result)
-                {
-                    Console.WriteLine($"Matching Record, got name={item.firstname}, lastname={item.lastname}, age={item.totalpoints}");
-                }
-            }
+            var users = userService.LoadRecords();
+
+            users.OrderBy(u => u.lastName).ToList()
+                .ForEach(i => Console.WriteLine($"Matching Record, got name={i.firstName}, lastName={i.lastName}, age={i.Age}"));
             
             Console.ReadKey();
         }

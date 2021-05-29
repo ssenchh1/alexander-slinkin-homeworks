@@ -1,7 +1,10 @@
-﻿namespace DAL.Abstractions.Interfaces
+﻿using System.Collections.Generic;
+using Core.Models;
+
+namespace DAL.Abstractions.Interfaces
 {
     public interface IRepository
     {
-        List<User> LoadRecords();
+        public List<User> LoadRecords();
     }
 }
