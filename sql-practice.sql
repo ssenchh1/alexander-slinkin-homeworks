@@ -15,7 +15,7 @@ where p.Color = 'Black'
 
 select p.ProductID, p.Name, p.ProductNumber, p.Color
 from SalesLT.Product p
-where p.Color = 'Black' or p.Color = 'Silver' or p.Color = 'Multi'
+where p.Color in ('Black','Silver', 'Multi')
 
 select p.ProductID, p.Name, p.ProductNumber, p.Color
 from SalesLT.Product p
@@ -39,11 +39,11 @@ where p.Weight between 2000 and 5000
 
 select p.ProductID, p.Name, p.ProductNumber, p.Weight
 from SalesLT.Product p
-where p.ProductNumber like 'BK%' or p.ProductNumber like 'BB%'
+where p.ProductNumber like 'B[KB]%'
 
 select p.ProductID, p.Name, p.ProductNumber, p.SellEndDate
 from SalesLT.Product p
-where p.SellEndDate > GETDATE()
+where p.SellEndDate is null
 
 --Задание 3
 
