@@ -13,6 +13,7 @@ namespace Tests
         public void Setup()
         {
             calc = new StringCalculator();
+            calc.AddOccured += calc.AddCalled;
         }
 
         [Test]
@@ -66,9 +67,9 @@ namespace Tests
         }
 
         [Test]
-        public void GetCallCount_WillReturnSix()
+        public void GetCallCount_WillReturnZero()
         {
-            Assert.AreEqual(6, calc.GetCalledCount());
+            Assert.AreEqual(0, calc.GetCalledCount());
         }
 
         [Test]
