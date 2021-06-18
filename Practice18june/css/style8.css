@@ -1,0 +1,28 @@
+.Blue {
+    color: blue;
+}
+
+.BigRed {
+    color: red;
+    text-transform: uppercase;
+}
+
+.GreenHead {
+    color: green;
+}
+
+.LeftText {
+    max-width: 50%;
+}
+
+.RightText{
+    text-align: right;
+}
+
+.ColoredList {
+    color: salmon;
+}
+
+.Interval{
+    line-height: 2.5;
+}

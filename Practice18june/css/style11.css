@@ -1,0 +1,10 @@
+.header {
+    background-color: orange;
+    color: white;
+}
+
+.header a{
+    text-decoration: none;
+    color: white;
+    margin-left: 15px;
+}

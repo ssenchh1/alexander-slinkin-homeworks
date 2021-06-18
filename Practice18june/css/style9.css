@@ -1,0 +1,15 @@
+body {
+    background-image: url("../img/Uzor.png");
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    background-position: 100% 0%;
+}
+
+.head{
+    text-align: center;
+}
+
+.Text{
+    max-width: 50%;
+    text-align: justify;
+}

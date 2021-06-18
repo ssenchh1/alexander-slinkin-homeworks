@@ -1,0 +1,9 @@
+.LeftFloat{
+    float: left;
+    margin-right: 10px;
+}
+
+.RightFloat{
+    float: right;
+    margin-left: 10px;
+}
