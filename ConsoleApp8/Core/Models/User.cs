@@ -6,13 +6,13 @@ namespace Core.Models
     public class User
     {
         [DataMember(EmitDefaultValue = false)]
-        public string firstName;
+        public string FirstName;
 
         [DataMember(EmitDefaultValue = false)]
-        public string lastName;
+        public string LastName;
 
         [DataMember]
-        public string points;
+        public string Points;
 
         [DataMember(EmitDefaultValue = false)]
         public int Age;

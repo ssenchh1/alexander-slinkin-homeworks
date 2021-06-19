@@ -16,23 +16,19 @@ namespace DAL.Services
         {
             var users = new List<User>();
 
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(GetJsonData()));
-            var ser = new DataContractJsonSerializer(users.GetType());
-
             try
             {
+                var ms = new MemoryStream(Encoding.UTF8.GetBytes(GetJsonData()));
+                var ser = new DataContractJsonSerializer(users.GetType());
                 users = ser.ReadObject(ms) as List<User>;
+                ms.Dispose();
             }
             catch (SerializationException exc)
             {
                 Console.WriteLine("Один из объектов не подлежит десериализации" + exc.Message);
             }
-            finally
-            {
-                ms.Close();
-            }
 
-            return users.Where(u => u.firstName != null && u.lastName != null).ToList();
+            return users.Where(u => u.FirstName != null && u.LastName != null).ToList();
         }
 
         private string GetJsonData()

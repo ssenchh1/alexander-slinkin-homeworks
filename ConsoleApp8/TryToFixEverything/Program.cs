@@ -25,8 +25,8 @@ namespace ConsoleApp8
 
             var users = userService.LoadRecords();
 
-            users.OrderBy(u => u.lastName).ToList()
-                .ForEach(i => Console.WriteLine($"Matching Record, got name={i.firstName}, lastName={i.lastName}, age={i.Age}"));
+            users.OrderBy(u => u.LastName).ToList()
+                .ForEach(i => Console.WriteLine($"Matching Record, got name={i.FirstName}, lastName={i.LastName}, age={i.Age}"));
             
             Console.ReadKey();
         }

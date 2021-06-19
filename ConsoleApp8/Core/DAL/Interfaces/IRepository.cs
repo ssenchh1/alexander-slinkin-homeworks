@@ -5,6 +5,6 @@ namespace Core.DAL.Interfaces
 {
     public interface IRepository
     {
-        public List<User> LoadRecords();
+        List<User> LoadRecords();
     }
 }
