@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
 using Dapper;
 using Practice11june.Domain.Model;
@@ -26,7 +24,7 @@ namespace Practice11june.Infrastructure.Repository
             {
                 var query = $"Select * from {tableName} where {Id} = @id";
 
-                var item = connection.QueryFirstOrDefault<T>(query, new{id});
+                var item = connection.QueryFirstOrDefault<T>(query, new { id });
                 itemToReturn = item;
             }
 
@@ -109,7 +107,7 @@ namespace Practice11june.Infrastructure.Repository
 
                 var id = typeof(T).GetProperty(Id).GetValue(obj);
 
-                var result = connection.Execute(query, new{ ObjectId = id});
+                var result = connection.Execute(query, new { ObjectId = id });
             }
         }
 
@@ -135,7 +133,7 @@ namespace Practice11june.Infrastructure.Repository
                 {
                     sb.Append($"{propnames[i]} = '{propvalues[i]}'");
                 }
-                else if(propvalues[i] is DateTime)
+                else if (propvalues[i] is DateTime)
                 {
                     sb.Append($"{propnames[i]} = '{propvalues[i]}'");
                 }
@@ -160,10 +158,10 @@ namespace Practice11june.Infrastructure.Repository
 
                 var idvalue = typeof(T).GetProperty(Id).GetValue(obj);
 
-                affected = connection.Execute(query, new {EntityId = idvalue });
+                affected = connection.Execute(query, new { EntityId = idvalue });
             }
 
-            return affected; 
+            return affected;
         }
 
         private string GenerateTableName()
@@ -186,13 +184,11 @@ namespace Practice11june.Infrastructure.Repository
         private string ConvertLinqToSql(Expression<Func<T, bool>> filter)
         {
             var stringFilter = filter.Body.ToString();
-            var a = filter.Parameters;
+            var parameters = filter.Parameters;
             var value = string.Empty;
 
             dynamic exp = filter.Body;
             var right = (Expression)exp.Right;
-
-            var ba = filter.Compile();
 
             stringFilter = stringFilter.Replace(right.ToString(), "");
 
@@ -201,7 +197,7 @@ namespace Practice11june.Infrastructure.Repository
                 var rightConst = right as ConstantExpression;
                 value = string.Format(value, rightConst.Value);
             }
-            else if(right is MemberExpression)
+            else if (right is MemberExpression)
             {
                 var rightMem = right as MemberExpression;
                 MemberExpression rightMemMem = null;
@@ -219,7 +215,6 @@ namespace Practice11june.Infrastructure.Repository
                 }
 
                 var member = rightMem.Member.DeclaringType;
-                var type = rightMem.Member.MemberType;
                 object? val;
 
                 if (rightMemMem != null)
@@ -231,33 +226,16 @@ namespace Practice11june.Infrastructure.Repository
                 {
                     val = member.GetField(rightMem.Member.Name).GetValue(rightConst.Value);
                 }
-                
-                if (val is string)
-                {
-                    value = $"'{val.ToString()}'";
-                }
-                else
-                {
-                    value = val.ToString();
-                }
-            }
-            else if(right is Expression)
-            {
-                var rightMem = right as MemberExpression;
-                var rightConst = rightMem.Expression as ConstantExpression;
-                var member = rightMem.Member.DeclaringType;
-                var type = rightMem.Member.MemberType;
-                var val = member.GetField(rightMem.Member.Name).GetValue(rightConst.Value);
-                if (val is string)
-                {
-                    value = $"'{val.ToString()}'";
-                }
-                else
-                {
-                    value = val.ToString();
-                }
-            }
 
+                if (val is string)
+                {
+                    value = $"'{val.ToString()}'";
+                }
+                else
+                {
+                    value = val.ToString();
+                }
+            }
 
             stringFilter = stringFilter
                 .Substring(1, stringFilter.Length - 2)
@@ -269,7 +247,7 @@ namespace Practice11june.Infrastructure.Repository
 
             stringFilter = stringFilter + $" {value}";
 
-            foreach (var parameterExpression in a)
+            foreach (var parameterExpression in parameters)
             {
                 stringFilter = stringFilter.Replace(parameterExpression + ".", "");
             }

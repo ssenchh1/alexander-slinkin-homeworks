@@ -38,7 +38,9 @@ namespace Practice11june.BLL.Services
                 user.Gender = HashString(user.Gender);
                 userRepo.Update(user);
 
-                var userOrders = orderRepo.Get(o => o.User_Id == user.User_Id);
+                var userId = user.User_Id;
+
+                var userOrders = orderRepo.Get(o => o.User_Id == userId);
 
                 foreach (var order in userOrders)
                 {
@@ -58,7 +60,9 @@ namespace Practice11june.BLL.Services
                 merchant.Name = HashString(merchant.Name);
                 merchantRepo.Update(merchant);
 
-                var products = productRepo.Get(p => p.Merchant_Id == merchant.Merchant_Id);
+                var merchantId = merchant.Merchant_Id;
+
+                var products = productRepo.Get(p => p.Merchant_Id == merchantId);
 
                 var prodId = products.Select(p => p.Product_Id).ToList();
 
