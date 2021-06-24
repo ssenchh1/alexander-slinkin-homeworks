@@ -1,0 +1,31 @@
+
+.main{
+    border: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.head{
+    background-color: dimgray;
+    height: 30px;
+}
+
+.head a{
+    vertical-align: middle;
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.blue{
+    color: blue;
+    font-weight: bold;
+}
+
+.center{
+    text-align: center;
+}
+
+.content{
+    padding: 5px;
+}

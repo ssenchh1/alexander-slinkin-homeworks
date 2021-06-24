@@ -1,0 +1,21 @@
+.header span{
+    display: inline-block;
+    min-width: 200px;
+}
+
+.header ul{
+    width: max-content;
+    list-style-type: none;
+}
+
+.header li{
+    margin: 15px;
+}
+
+.header a{
+    background-color: dimgrey;
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    position: relative;
+}

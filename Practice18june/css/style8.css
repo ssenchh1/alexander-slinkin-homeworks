@@ -1,0 +1,28 @@
+.blue {
+    color: blue;
+}
+
+.bigRed {
+    color: red;
+    text-transform: uppercase;
+}
+
+.greenHead {
+    color: green;
+}
+
+.leftText {
+    max-width: 50%;
+}
+
+.rightText{
+    text-align: right;
+}
+
+.coloredList {
+    color: salmon;
+}
+
+.interval{
+    line-height: 2.5;
+}
