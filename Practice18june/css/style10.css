@@ -1,9 +1,9 @@
-.LeftFloat{
+.leftFloat{
     float: left;
     margin-right: 10px;
 }
 
-.RightFloat{
+.rightFloat{
     float: right;
     margin-left: 10px;
 }

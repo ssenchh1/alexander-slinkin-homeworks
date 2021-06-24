@@ -1,28 +1,28 @@
-.Blue {
+.blue {
     color: blue;
 }
 
-.BigRed {
+.bigRed {
     color: red;
     text-transform: uppercase;
 }
 
-.GreenHead {
+.greenHead {
     color: green;
 }
 
-.LeftText {
+.leftText {
     max-width: 50%;
 }
 
-.RightText{
+.rightText{
     text-align: right;
 }
 
-.ColoredList {
+.coloredList {
     color: salmon;
 }
 
-.Interval{
+.interval{
     line-height: 2.5;
 }
