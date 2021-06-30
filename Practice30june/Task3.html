@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var number = Math.floor(Math.random() * 20);
+        Run();
+
+        function Run(){
+
+            var answer = EnterAnswer();
+
+            CheckAnswer(answer);
+        }
+
+        function CheckAnswer(ansr) {
+            if(typeof ansr == 'number' && typeof ansr == 'NaN'){
+                if(ansr === number){
+                alert("Ты выиграл!");
+                }
+                else if(ansr < number){
+                    alert("Мaло");
+                    CheckAnswer(EnterAnswer());
+                }
+                else{
+                    alert("Много");
+                    CheckAnswer(EnterAnswer());
+                }
+            }
+            else{
+                alert("Надо вводить числа");
+                CheckAnswer(EnterAnswer());
+            }
+        }
+
+        function EnterAnswer(){
+            let ans = prompt("Угадай число");
+            return parseInt(ans, 10);
+        }
+
+    </script>
+</body>
+</html>

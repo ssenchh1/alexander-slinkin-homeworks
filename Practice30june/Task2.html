@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="years"></div>
+    <script>
+        var element = document.getElementById("years");
+
+        for(var i = 2014; i <= 2050; i++){
+            var date = new Date(i, 1, 1);
+            if(date.toLocaleString('en-US', {weekday : 'long'}) == "Sunday"){
+                element.textContent += i.toString() + "\r\n";
+            };
+        };
+    </script>
+</body>
+</html>
