@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        removeDuplicates([1, 1, 2, 1, 3, 1]);
+        function removeDuplicates(arr){
+            var array = Array.from(arr);
+            array = array.sort();
+
+            for(var i = 0; i < array.length-1; i++){
+                var obj = array[i];
+                for(var k = i+1; k < array.length; k++){
+                    if(array[k] === obj){
+                        array.splice(array[k],1);
+                        k--;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+            alert("[" + array.toString() + "]");
+        }
+    </script>
+</body>
+</html>
