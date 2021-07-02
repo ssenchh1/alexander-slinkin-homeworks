@@ -9,13 +9,13 @@
 <body>
     <h2 id="time">time</h2>
     <script>
-        function GetTime() {
+        function ShowCurrentTime() {
             var date = new Date();
             var element = document.getElementById("time");
             element.textContent = date.toTimeString();
         }
 
-        var timer = setInterval(GetTime , 1000);
+        var timer = setInterval(ShowCurrentTime , 1000);
     </script>
 </body>
 </html>

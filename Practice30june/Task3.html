@@ -19,7 +19,7 @@
         }
 
         function CheckAnswer(ansr) {
-            if(typeof ansr == 'number' && typeof ansr == 'NaN'){
+            if(typeof ansr == 'number' && typeof ansr !== 'NaN'){
                 if(ansr === number){
                 alert("Ты выиграл!");
                 }

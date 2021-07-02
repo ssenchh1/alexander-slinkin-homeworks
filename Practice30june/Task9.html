@@ -10,7 +10,7 @@
     <script>
         Combine(["adb","qwer","tyu"], "***");
         function Combine(array, joiner){
-            var arr = Array.from(array);
+            var arr = Array.isArray(array) ? array : Array.from(array);
             alert(arr.join(joiner));
         }
     </script>
