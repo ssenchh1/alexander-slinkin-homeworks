@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Validator{
+            isValid(string){
+                console.log("Не реализован");
+            }
+        }
+
+        class EmailValidator extends Validator{
+            isValid(email){
+                console.log("Валидация почты не реализована");
+            }
+        }
+
+        class PhoneValidator extends Validator{
+            isValid(phone){
+                console.log("Валидация телефона не реализована");
+            }
+        }
+
+        var val = new Validator();
+        var eval = new EmailValidator();
+        var pval = new PhoneValidator();
+
+        val.isValid("hfnfnf");
+        eval.isValid("afdfgdg");
+        pval.isValid("adfsfs");
+
+        //вроде так надо было сделать, если я правильно понял задание
+    </script>
+</body>
+</html>

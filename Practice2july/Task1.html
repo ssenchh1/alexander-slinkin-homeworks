@@ -51,7 +51,49 @@
         c.ShowArea();
 
         //classes using prototype
-        //еще не успел
+        function shape(){
+            this.area = 0;
+        }
+
+        shape.prototype.GetArea = function(){
+            return this.area;
+        }
+
+        shape.prototype.ShowArea = function(){
+            console.log(this.GetArea());
+        }
+
+        function square(side){
+            shape.call(this);
+            this.side = side;
+        }
+
+        square.prototype = Object.create(shape.prototype);
+
+        square.prototype.GetArea = function(){
+            return this.side*this.side;
+        }
+
+        function circle(radius){
+            shape.call(this);
+            this.radius = radius;
+        }
+
+        circle.prototype = Object.create(shape.prototype);
+
+        circle.prototype.GetArea = function(){
+            return 3.14*this.radius*this.radius;
+        }
+
+        var c = new circle(2);
+        c.__proto__.ShowArea();
+        var s = new square(5);
+        s.__proto__.ShowArea();
+
+        //работает почти правильно, но при вызове showarea из прототипа вызывается правильная реализация
+        //getarea, но поля объекта равны Nan
+        //Подскажите, пожалуйста, в чем проблема
+
     </script>
 </body>
 </html>
