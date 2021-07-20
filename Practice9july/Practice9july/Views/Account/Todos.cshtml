@@ -1,0 +1,8 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <h1>ToDos: </h1>
+}
+else
+{
+    Context.Response.Redirect(Url.Action("Index","Home"));
+}
