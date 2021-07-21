@@ -1,0 +1,33 @@
+﻿@model EduPortal.Application.ViewModels.CoursesViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout1";
+}
+
+<section class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Top rated courses of this summer</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="courseContainer">
+                    @foreach (var course in Model.Courses)
+                    {
+                        <div class="col-lg-2 p-3">
+                            <div class="courseItem">
+                                <div class="card-img">
+                                    <img class="img-thumbnail image" src="~/img/@course.CourseImage"/>
+                                </div>
+
+                                <h2 class="courseName"><a asp-controller="Courses" asp-action="Course" asp-route-id="@course.Id">@course.Name</a></h2>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

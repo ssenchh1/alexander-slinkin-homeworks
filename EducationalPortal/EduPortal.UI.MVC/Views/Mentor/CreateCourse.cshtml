@@ -1,0 +1,70 @@
+﻿@using EduPortal.Domain.Models.Materials
+@using EduPortal.Application.ViewModels
+@model EduPortal.Application.ViewModels.CreateCourseViewModel
+
+@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Sign in</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/jquery/dist/jquery.min.js"/>
+
+    <!-- Favicons -->
+    <meta name="theme-color" content="#7952b3">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/signin.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/style.css"/>
+</head>
+<body class="text-center">
+
+    <main class="form-signin">
+        <form method="post" enctype="multipart/form-data" asp-controller="Mentor" asp-action="CreateCourse">
+            <div asp-validation-summary="ModelOnly"></div>
+            <h1 class="h3 mb-3 fw-normal">Creating course...</h1>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Name" asp-for="Name">
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Text" asp-for="Description">
+            </div>
+            <div class="form-floating">
+                <label asp-for="MaterialIds">Choose materials to add:</label>
+                <select id="materials" multiple name="MaterialIds" asp-for="MaterialIds" asp-items="ViewBag.Materials">
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input type="file" asp-for="CourseImage" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="CourseImage" class="text-danger"></span>
+            </div>
+
+            <input class="w-100 btn btn-lg btn-primary" type="submit" value="Create course">
+
+        </form>
+    </main>
+        <script type="text/javascript">
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/bootstrap-multiselect.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>

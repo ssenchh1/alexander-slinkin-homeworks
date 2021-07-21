@@ -1,0 +1,58 @@
+﻿@model EduPortal.Domain.PagedList<EduPortal.Domain.Models.Course>
+
+@{
+    Layout = "_Layout1";
+}
+
+<div class="banner">
+    <h2>All courses</h2>
+    <div class="align-content-center">
+        @foreach (var course in Model.Items)
+        {
+            <div class="d-flex flex-row">
+                <img src="~/img/@course.CourseImage" class="w-25 img-thumbnail" />
+                <div class="d-flex flex-column" style="margin-left: 25px">
+                    <h3><a asp-controller="Courses" asp-action="Course" asp-route-id="@course.Id">@course.Name</a></h3>
+                    <h3>@course.AuthorId</h3>
+                    <h3>@course.Description</h3>
+                </div>
+            </div>
+            <hr class="border-danger" />
+        }
+
+        @if (@Model.HasPreviousPage)
+        {
+            <a asp-controller="User" asp-action="InProgressCourses" asp-route-page="@(Model.CurrentPageNumber-1)"
+               class="btn btn-outline-dark">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Назад
+            </a>
+        }
+        else
+        {
+            <a asp-controller="User" asp-action="InProgressCourses" asp-route-page="@(Model.CurrentPageNumber-1)"
+               class="btn btn-outline-dark disabled">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Назад
+            </a>
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <a asp-controller="User" asp-action="InProgressCourses" asp-route-page="@(Model.CurrentPageNumber+1)"
+               class="btn btn-outline-dark">
+                Вперед
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        }
+        else
+        {
+            <a asp-controller="User" asp-action="InProgressCourses" asp-route-page="@(Model.CurrentPageNumber-1)"
+               class="btn btn-outline-dark disabled">
+                Вперед
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        }
+
+    </div>
+</div>

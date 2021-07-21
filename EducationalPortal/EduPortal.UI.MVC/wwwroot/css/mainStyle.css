@@ -1,0 +1,125 @@
+header{
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+}
+
+.logoContainer{
+    max-width: 15%;
+}
+
+.logoImg{
+    max-width: 100%;
+}
+
+.nav-item{
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link{
+    padding: 5px 15px;
+}
+
+.dropdown-menu li {
+    position: relative;
+}
+
+.dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+}
+
+.dropdown-menu > li:hover > .dropdown-submenu {
+    display: block;
+}
+
+.banner{
+    position:relative;
+    background: url("../img/color-splash.jpg");
+    min-height: 100vh;
+    background-size: cover;
+    background-position: top;
+    padding: 250px 0 200px;
+}
+
+.courseContainer{
+  display: flex;
+  backdrop-filter: blur(10px);
+  justify-content: space-between;
+}
+
+.courseItem{
+  padding: 10px 10px 10px 10px;
+  background-color: rgba(245, 245, 245, 0.5);
+  transition-duration: 0.5s;
+}
+
+.courseItem:hover{
+  transform: scale(1.2);
+}
+
+.image{
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.courseName{
+  white-space: nowrap; 
+  font-size: 1.8vw;
+}
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+  }
+
+#register {
+    max-width: 100px;
+    margin-left: 5px;
+}
+  
+  /* Add a hover effect if you want */
+  .fa:hover {
+    opacity: 0.7;
+  }
+  
+  /* Set a specific color for each brand */
+  
+  /* Facebook */
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  /* Twitter */
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+
+  .fa-google{
+    background: #dd4b39;
+    color: white;
+  }
+
+  .fa-dribbble{
+    background: #ea4c89;
+    color: white;
+  }
+
+  .fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
