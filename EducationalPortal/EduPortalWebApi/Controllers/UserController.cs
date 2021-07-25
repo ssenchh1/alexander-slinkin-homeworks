@@ -119,22 +119,18 @@ namespace EduPortalWebApi.Controllers
             return model;
         }
 
-        //[HttpPost]
-        //[Route("ChangeProfile")]
-        //public async Task<IActionResult> ChangeProfile(ChangeProfileViewModel model)
-        //{
-        //    string uniqueFileName = UploadedFile(model);
+        [HttpPost]
+        [Route("ChangeProfile")]
+        public async Task<IActionResult> ChangeProfile(ChangeProfileViewModel model)
+        {
+            string uniqueFileName = UploadedFile(model);
 
-        //    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        //    if (model.Login != null)
-        //    {
-        //        user.Login = model.Login;
-        //    }
-        //    user.ProfilePicture = uniqueFileName;
-        //    await _userManager.UpdateAsync(user);
-        //    return RedirectToAction("MyProfile", "User");
-        //}
+            await _userService.UpdateProfile(userId, model, uniqueFileName);
+
+            return Ok();
+        }
 
         private string UploadedFile(ChangeProfileViewModel model)
         {

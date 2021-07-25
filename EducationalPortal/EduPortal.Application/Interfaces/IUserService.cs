@@ -9,5 +9,7 @@ namespace EduPortal.Application.Interfaces
         Task<Dictionary<string, int>> GetUserSkills(string userId);
 
         Task<UserProfileViewModel> GetProfile(string userId, AccountCoursesViewModel courses);
+
+        Task UpdateProfile(string userId, ChangeProfileViewModel model, string imagePath);
     }
 }

@@ -42,5 +42,19 @@ namespace EduPortal.Application.Services
 
             return new UserProfileViewModel() { Login = user.Login, Email = user.Email, Courses = courses.Courses, FinishedCourses = courses.FinishedCourses, Skills = skills };
         }
+
+        public async Task UpdateProfile(string userId, ChangeProfileViewModel model, string imagePath)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if (model.Login != null)
+            {
+                user.Login = model.Login;
+            }
+
+            user.ProfilePicture = imagePath;
+
+            await _userRepository.UpdateAsync(user);
+        }
     }
 }
