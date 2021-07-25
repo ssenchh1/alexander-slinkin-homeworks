@@ -1,26 +1,23 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EduPortal.Application.Interfaces;
 using EduPortal.Application.Services;
 using EduPortal.Domain.Interfaces;
 using EduPortal.Domain.Models;
 using EduPortal.Domain.Models.Materials;
 using EduPortal.Domain.Models.Users;
+using EduPortal.Infrastructure;
 using EduPortal.Infrastructure.Context;
 using EduPortal.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EduPortalWebApi
 {
@@ -41,16 +38,56 @@ namespace EduPortalWebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EduPortalWebApi", Version = "v1" });
-            });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\""
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
 
-            var a = Configuration.GetConnectionString("Default");
+                    }
+                });
+            });
 
             services.AddDbContext<EducationalPortalContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<EducationalPortalContext>();
+                .AddEntityFrameworkStores<EducationalPortalContext>()
+                .AddDefaultTokenProviders();
 
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.SaveToken = true;
+                    opt.RequireHttpsMetadata = false;
+                    opt.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = key,
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddTransient<IGenericUserRepository<User>, UserRepository>();
             services.AddScoped<IRepository<Skill>, Repository<Skill>>();
             services.AddTransient<IUserRepository<Mentor>, MentorRepository>();
@@ -76,6 +113,7 @@ namespace EduPortalWebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

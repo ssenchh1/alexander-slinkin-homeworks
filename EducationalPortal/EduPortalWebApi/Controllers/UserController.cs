@@ -1,49 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using EduPortal.Application.Interfaces;
 using EduPortal.Application.ViewModels;
 using EduPortal.Domain;
 using EduPortal.Domain.Interfaces;
-using EduPortal.Domain.Models;
 using EduPortal.Domain.Models.Users;
 using EduPortal.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduPortalWebApi.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository<Student> _studentRepository;
-        private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository<Student> studentRepository, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment)
+        public UserController(IUserRepository<Student> studentRepository, IUserService userService, IWebHostEnvironment webHostEnvironment)
         {
             _studentRepository = studentRepository;
-            _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _userService = userService;
         }
 
         [HttpGet]
-        [Route("profile")]
-        //[Authorize]
-        public async Task<ActionResult<UserProfileViewModel>> MyProfile(string userId)
+        [Route("Profile")]
+        public async Task<ActionResult<UserProfileViewModel>> MyProfile()
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            var courses = await Courses(userId);
-            return new UserProfileViewModel(){Login = user.Login, Email = user.Email, Courses = courses.Courses, FinishedCourses = courses.FinishedCourses};
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var courses = await Courses();
+
+            return await _userService.GetProfile(userId, courses);
         }
 
         [HttpGet]
         [Route("Courses")]
-        public async Task<AccountCoursesViewModel> Courses(string userId)
+        public async Task<AccountCoursesViewModel> Courses()
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var student = await _studentRepository.GetByIdAsync(userId, "Courses,FinishedCourses");
 
             List<CourseViewModel> inProgressCourses = new List<CourseViewModel>();
@@ -70,11 +73,12 @@ namespace EduPortalWebApi.Controllers
 
         [HttpGet]
         [Route("InProgressCourses")]
-        public async Task<PagedList<CourseViewModel>> InProgressCourses(string userId, int? page)
+        public async Task<PagedList<CourseViewModel>> InProgressCourses(int? page)
         {
             int currentPage = page ?? 1;
             int pageSize = 3;
-            
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var student = await _studentRepository.GetByIdAsync(userId, "Courses,FinishedCourses");
 
             var result = student.Courses.ToPagedAsync(currentPage, pageSize);
@@ -93,11 +97,12 @@ namespace EduPortalWebApi.Controllers
 
         [HttpGet]
         [Route("FinishedCourses")]
-        public async Task<PagedList<CourseViewModel>> FinishedCourses(string userId, int? page)
+        public async Task<PagedList<CourseViewModel>> FinishedCourses(int? page)
         {
             int currentPage = page ?? 1;
             int pageSize = 3;
-            
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var student = await _studentRepository.GetByIdAsync(userId, "Courses,FinishedCourses");
 
             var result = student.FinishedCourses.ToPagedAsync(currentPage, pageSize);

@@ -11,5 +11,7 @@ namespace EduPortal.Application.ViewModels
         public IEnumerable<CourseViewModel> Courses { get; set; }
 
         public IEnumerable<CourseViewModel> FinishedCourses { get; set; }
+
+        public IDictionary<string, int> Skills { get; set; }
     }
 }

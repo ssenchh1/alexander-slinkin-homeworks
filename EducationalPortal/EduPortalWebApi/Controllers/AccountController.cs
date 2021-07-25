@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EduPortalWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -18,14 +18,16 @@ namespace EduPortalWebApi.Controllers
         private readonly IRoleService _roleService;
         private readonly IUserRepository<Student> _studentRepository;
         private readonly IUserRepository<Mentor> _mentorRepository;
+        private readonly IJwtGenerator _jwtGenerator;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IRoleService roleService, IUserRepository<Student> studentRepository, IUserRepository<Mentor> mentorRepository)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IRoleService roleService, IUserRepository<Student> studentRepository, IUserRepository<Mentor> mentorRepository, IJwtGenerator jwtGenerator)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleService = roleService;
             _studentRepository = studentRepository;
             _mentorRepository = mentorRepository;
+            _jwtGenerator = jwtGenerator;
         }
 
         [HttpPost]
@@ -68,6 +70,7 @@ namespace EduPortalWebApi.Controllers
         }
 
         [HttpPost]
+        [Route("Login")]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
@@ -82,7 +85,7 @@ namespace EduPortalWebApi.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Ok();
+                    return Ok(_jwtGenerator.CreateToken(user));
                 }
                 else
                 {
@@ -93,6 +96,8 @@ namespace EduPortalWebApi.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+        [Route("Logout")]
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

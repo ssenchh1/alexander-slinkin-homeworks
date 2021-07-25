@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using EduPortal.Application.Interfaces;
 using EduPortal.Application.ViewModels;
 using EduPortal.Domain.Interfaces;
 using EduPortal.Domain.Models.Materials;
 using EduPortal.Domain.Models.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduPortalWebApi.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CoursesController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -26,6 +29,7 @@ namespace EduPortalWebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Catalog")]
         public async Task<IEnumerable<CourseViewModel>> Catalog(int? page)
         {
@@ -39,7 +43,7 @@ namespace EduPortalWebApi.Controllers
 
         [HttpGet]
         [Route("Course/{id?}")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<CourseViewModel>> Course(int? id)
         {
             if (id == null)
@@ -52,18 +56,20 @@ namespace EduPortalWebApi.Controllers
         }
 
         [HttpPost]
-        [Route("PurchaseCourse/{id}/{studentId}")]
-        public async Task<ActionResult> PurchaseCourse(int id, string studentId)
+        [Route("PurchaseCourse/{id}")]
+        public async Task<ActionResult> PurchaseCourse(int id)
         {
+            var studentId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var student = await _studentRepository.GetByIdAsync(studentId);
             await _courseService.AddStudentToCourse(id, student);
             return Content("Success");
         }
 
         [HttpGet]
-        [Route("OpenCourse/{courseId}/{studentId}")]
-        public async Task<ActionResult<OpenCourseViewModel>> OpenCourse(int courseId, string studentId)
+        [Route("OpenCourse/{courseId}")]
+        public async Task<ActionResult<OpenCourseViewModel>> OpenCourse(int courseId)
         {
+            var studentId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var student = await _studentRepository.GetByIdAsync(studentId, "PassedMaterials");
             if (await _courseService.IsPurchased(courseId, student))
             {
@@ -127,9 +133,10 @@ namespace EduPortalWebApi.Controllers
         }
 
         [HttpPost]
-        [Route("ApproveMaterial/{materialId}/{userId}")]
-        public async Task<ActionResult> ApproveMaterial(int materialId, string userId)
+        [Route("ApproveMaterial/{materialId}")]
+        public async Task<ActionResult> ApproveMaterial(int materialId)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
             var task1 = _courseService.PassMaterial(materialId, user);
 

@@ -6,10 +6,8 @@ namespace EduPortal.Application.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<CourseViewModel>> GetUserCourses(string userId);
+        Task<Dictionary<string, int>> GetUserSkills(string userId);
 
-        Task<IEnumerable<CourseViewModel>> GetFinishedCourses(string userId);
-
-        Task<UserProfileViewModel> GetProfile(string userId);
+        Task<UserProfileViewModel> GetProfile(string userId, AccountCoursesViewModel courses);
     }
 }

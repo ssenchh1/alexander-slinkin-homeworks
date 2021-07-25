@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using EduPortal.Application.Interfaces;
 using EduPortal.Application.ViewModels;
@@ -14,7 +15,7 @@ namespace EduPortalWebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize(Roles = "Mentor")]
+    [Authorize(Roles = "Mentor")]
     public class MentorController : ControllerBase
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -30,7 +31,7 @@ namespace EduPortalWebApi.Controllers
 
         [HttpPost]
         [Route("CreateArticle")]
-        public async Task<IActionResult> CreateArticle(CreateArticleViewModel model, string userId)
+        public async Task<IActionResult> CreateArticle(CreateArticleViewModel model)
         {
             ModelState.Remove("Date");
             model.Date = DateTime.Today;
@@ -42,6 +43,7 @@ namespace EduPortalWebApi.Controllers
 
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 await _mentorService.CreateArticleAsync(model, userId);
                 return Ok();
             }
@@ -58,7 +60,7 @@ namespace EduPortalWebApi.Controllers
 
         [HttpPost]
         [Route("CreateBook")]
-        public async Task<IActionResult> CreateBook(CreateBookViewModel model, string userId)
+        public async Task<IActionResult> CreateBook(CreateBookViewModel model)
         {
 
             if (string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.Text) || string.IsNullOrEmpty(model.Format))
@@ -68,6 +70,7 @@ namespace EduPortalWebApi.Controllers
 
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 await _mentorService.CreateBookAsync(model, userId);
                 return Ok();
             }
@@ -78,7 +81,7 @@ namespace EduPortalWebApi.Controllers
 
         [HttpPost]
         [Route("CreateVideo")]
-        public async Task<ActionResult> CreateVideo(CreateVideoViewModel model, string userId)
+        public async Task<ActionResult> CreateVideo(CreateVideoViewModel model)
         {
             if (string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.Length.ToString()))
             {
@@ -87,6 +90,7 @@ namespace EduPortalWebApi.Controllers
 
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 await _mentorService.CreateVideoAsync(model, userId);
                 return Ok();
             }
@@ -96,7 +100,7 @@ namespace EduPortalWebApi.Controllers
 
         [HttpPost]
         [Route("CreateCourse")]
-        public async Task<ActionResult> CreateCourse(CreateCourseViewModel model, string userId)
+        public async Task<ActionResult> CreateCourse(CreateCourseViewModel model)
         {
             if (string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.Description) ||
                 model.MaterialIds == null)
@@ -106,6 +110,7 @@ namespace EduPortalWebApi.Controllers
 
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 string uniqueFileName = UploadedFile(model);
                 model.ImagePath = uniqueFileName;
                 model.Materials = await _mentorService.GetMaterialsByIdAsync(model.MaterialIds.Select(s => int.Parse(s)));

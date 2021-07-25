@@ -6,7 +6,7 @@ using EduPortal.Domain.Models.Materials;
 
 namespace EduPortal.Application.Interfaces
 {
-    public interface IMentorService : IUserService
+    public interface IMentorService
     {
         Task CreateArticleAsync(CreateArticleViewModel model, string authorId);
 

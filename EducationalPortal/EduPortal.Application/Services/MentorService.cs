@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EduPortal.Application.Interfaces;
 using EduPortal.Application.ViewModels;
@@ -9,7 +8,6 @@ using EduPortal.Domain.Interfaces;
 using EduPortal.Domain.Models;
 using EduPortal.Domain.Models.Joining;
 using EduPortal.Domain.Models.Materials;
-using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 
 namespace EduPortal.Application.Services
 {
@@ -24,21 +22,6 @@ namespace EduPortal.Application.Services
             _materialRepository = materialRepository;
             _courseRepository = courseRepository;
             _skillRepository = skillRepository;
-        }
-
-        public Task<IEnumerable<CourseViewModel>> GetUserCourses(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<CourseViewModel>> GetFinishedCourses(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserProfileViewModel> GetProfile(string userId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task CreateArticleAsync(CreateArticleViewModel model, string authorId)
