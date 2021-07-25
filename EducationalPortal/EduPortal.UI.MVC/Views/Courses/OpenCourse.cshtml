@@ -1,0 +1,47 @@
+﻿@using EduPortal.Domain.Models.Materials
+@model IEnumerable<EduPortal.Domain.Models.Materials.Material>
+
+@{
+    Layout = "_Layout1";
+}
+
+<div class="banner">
+    <h1>You passed @ViewData["percent"]% of all materials</h1>
+    @foreach (var material in @Model)
+    {
+        if (material is Article article)
+        {
+            <h1>@article.Name</h1>
+            <p>@article.Text</p>
+            <h3>@article.Source</h3>
+        }
+        else if (material is DigitalBook book)
+        {
+            <h1>@book.Name</h1>
+            <h2>Format: @book.Format</h2>
+            <h2>Number of pages: @book.NumberOfPages</h2>
+            <h2>Year: @book.Year</h2>
+            <p>@book.Text</p>
+        }
+        else if (material is VideoMaterial video)
+        {
+            <h1>@video.Name</h1>
+            <h2>Length: @video.Length</h2>
+            <h2>Link to video: Вставь ссылку</h2>
+        }
+        @if ((bool) ViewData[material.Id.ToString()])
+        {
+            <form method="post" asp-controller="Courses" asp-action="ApproveMaterial" asp-route-materialId="@material.Id" asp-route-courseId="@ViewData["courseId"]">
+                <button class="btn btn-success disabled">Approved!</button>
+            </form>
+        }
+        else
+        {
+            <form method="post" asp-controller="Courses" asp-action="ApproveMaterial" asp-route-materialId="@material.Id" asp-route-courseId="@ViewData["courseId"]">
+                <button class="btn btn-primary">Approve material</button>
+            </form>
+        }
+
+        <hr class="border-danger"/>
+    }
+</div>

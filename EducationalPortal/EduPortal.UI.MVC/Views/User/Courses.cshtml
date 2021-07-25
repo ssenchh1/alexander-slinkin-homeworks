@@ -1,0 +1,25 @@
+﻿@model EduPortal.Application.ViewModels.AccountCoursesViewModel
+
+@{
+    Layout = "_Layout1";
+}
+
+<div class="banner">
+    @if (!@Model.Courses.Any())
+    {
+        <h1>You have no running courses(</h1>
+    }
+    else
+    {
+        <h1><a asp-controller="User" asp-action="InProgressCourses">Running Courses (@Model.Courses.Count())</a></h1>
+    }
+
+    @if (!@Model.FinishedCourses.Any())
+    {
+        <h1>You have no finished courses(</h1>
+    }
+    else
+    {
+        <h1><a asp-controller="User" asp-action="FinishedCourses" >Finished Courses (@Model.Courses.Count())</a></h1>
+    }
+</div>

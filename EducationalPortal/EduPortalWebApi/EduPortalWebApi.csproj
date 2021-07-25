@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EduPortal.Application\EduPortal.Application.csproj" />
+    <ProjectReference Include="..\EduPortal.Domain\EduPortal.Domain.csproj" />
+    <ProjectReference Include="..\EduPortal.Infrastructure\EduPortal.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

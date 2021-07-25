@@ -1,0 +1,15 @@
+﻿@model EduPortal.Domain.Models.Users.User
+
+@{
+    Layout = "_Layout1";
+}
+
+<div class="banner">
+    <img src="~/img/@Model.ProfilePicture" class="rounded-circle"/>
+    <h1>Login: @Model.Login</h1>
+    <h1>Email: @Model.Email</h1>
+    
+    <h2><a asp-controller="User" asp-action="Courses">Courses</a></h2>
+    
+    <a class="btn btn-primary" asp-controller="User" asp-action="ChangeProfile">Change Account</a>
+</div>

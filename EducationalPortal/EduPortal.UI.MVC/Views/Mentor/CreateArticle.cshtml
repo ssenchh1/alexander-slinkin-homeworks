@@ -1,0 +1,51 @@
+﻿@model EduPortal.Application.ViewModels.CreateArticleViewModel
+
+@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Sign in</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <meta name="theme-color" content="#7952b3">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/signin.css" rel="stylesheet">
+</head>
+<body class="text-center">
+
+    <main class="form-signin">
+        <form method="post" asp-controller="Mentor" asp-action="CreateArticle">
+            <div asp-validation-summary="ModelOnly"></div>
+            <h1 class="h3 mb-3 fw-normal">Creating material...</h1>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Name" asp-for="Name">
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Text" asp-for="Text">
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Source" asp-for="Source">
+            </div>
+            <div class="form-floating">
+                <select id="skills" multiple name="SkillsPoints" asp-for="SkillsPoints" asp-items="@ViewBag.Skills">
+                </select>
+            </div>
+            <input hidden value="Article" asp-for="Category" />
+            <input hidden value="@DateTime.Now.ToString("yyyy-MM-dd")" asp-for="Date" />
+
+            <input class="w-100 btn btn-lg btn-primary" type="submit" value="Create material">
+        </form>
+    </main>
+
+</body>
+</html>
